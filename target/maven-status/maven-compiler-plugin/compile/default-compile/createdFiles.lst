@@ -1,0 +1,7 @@
+com/librokeep/dao/UserDAO.class
+com/librokeep/dao/BorrowerDAO.class
+com/librokeep/model/Book.class
+com/librokeep/dao/BookDAO.class
+com/librokeep/ui/Main.class
+com/librokeep/model/User.class
+com/librokeep/config/DBConnection.class
