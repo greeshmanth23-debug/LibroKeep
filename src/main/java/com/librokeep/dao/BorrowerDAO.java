@@ -5,6 +5,8 @@ import com.librokeep.config.DBConnection;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 public class BorrowerDAO {
 
@@ -120,5 +122,33 @@ public class BorrowerDAO {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public List<Object[]> getMyBooks(String username) {
+
+        List<Object[]> list = new ArrayList<>();
+
+        String query = "SELECT tid, book_id, borrowed_time FROM borrowers WHERE customer_name=?";
+
+        try (Connection conn = DBConnection.getConnection();
+                PreparedStatement stmt = conn.prepareStatement(query)) {
+
+            stmt.setString(1, username);
+
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                list.add(new Object[] {
+                        rs.getInt("tid"),
+                        rs.getInt("book_id"),
+                        rs.getTimestamp("borrowed_time")
+                });
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return list;
     }
 }
